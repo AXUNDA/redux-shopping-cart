@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import authSlice from "./auth-slice"
+
 
 
 
@@ -21,7 +21,7 @@ const cartSlice = createSlice({
                   const existingItem = state.itemList.find((item) => item.id === newItem.id)
                   if (existingItem) {
                         existingItem.quantity++
-                        existingItem.price += newItem.price
+                        existingItem.totalPrice += newItem.price
                   } else {
                         state.itemList.push({
                               id: newItem.id,
@@ -30,14 +30,26 @@ const cartSlice = createSlice({
                               totalPrice: newItem.price,
                               name: newItem.name
                         })
+                        state.totalQuantity++
                   }
 
             },
             removeFromCart(state, action) {
+                  const item = state.itemList.find(item => item.id === action.payload)
+                  if (item.quantity === 1) {
+                        state.itemList = state.itemList.filter(item => item.id !== action.payload)
+                        state.totalQuantity--
+
+                  } else {
+                        item.quantity--
+                        item.totalPrice -= item.price
+                  }
 
             },
-            shoeCart(state) {
-                  state.showCart = true
+            showCart(state) {
+
+                  state.showCart = !state.showCart
+
 
             }
       }
