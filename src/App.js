@@ -5,7 +5,7 @@ import Layout from "./components/Layout";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import Notification from "./components/Notification";
-import { uiActions } from "./store/ui-slice";
+
 import { sendCart } from "./store/cart.slice";
 import { fetchCart } from "./store/cart.slice";
 
